@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Categories of groups -->
+        
+        <record model="ir.module.category" id="module_category_real_estate">
+            <field name="name">Real Estate</field>
+            <field name="description">Category for estate Properties security group</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record model="ir.module.category" id="module_category_real_estate2">
+            <field name="name">Real Estate</field>
+            <field name="description">Category for estate Properties security group</field>
+            <field name="sequence">10</field>
+            <field name="parent_id" ref="module_category_real_estate"/>
+        </record>
+
+        <!-- Access Rights for estate Property -->
+
+        <record id= "group_real_estate_agents" model="res.groups">
+            <field name="name"> Agents </field>
+            <field name="category_id" ref="module_category_real_estate2"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        </record>
+
+         <record id= "group_real_estate_managers" model="res.groups">
+            <field name="name"> Managers </field>
+            <field name="category_id" ref="module_category_real_estate2"/>
+            <field name="implied_ids" eval="[(4, ref('group_real_estate_agents'))]" />
+        </record>
+
+    </data>
+
+</odoo>

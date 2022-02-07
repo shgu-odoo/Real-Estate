@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="real_estate_properties_action" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">kanban,tree,form,calendar,graph,gantt</field>
+        <field name="context">{'search_default_state' : 'new' ,'search_default_my_property_search' : 1 ,'is_my_property' : True}</field>
+    </record>
+
+    <record id="estate_property_type_action" model="ir.actions.act_window">
+        <field name="name">Property Types</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Kanban-->
+    <record id="estate_property_accepted_offer_action" model="ir.actions.act_window">
+        <field name="name">estate.property.accepted.offer.action</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="domain">[('status','=','accepted')]</field>
+        <field name="context">{'default_property_id':active_id}</field>
+        <field name="view_mode">tree</field>
+    </record>
+    
+    <record id="real_estate_properties_offer_action" model="ir.actions.act_window">
+        <field name="name">Offers</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_real_estate_root" name="Real Estate">
+        <menuitem id="menu_real_estate_advertisements" name="Advertisements">
+            <menuitem id="menu_real_estate_action" action="real_estate_properties_action"/>
+            <menuitem id="menu_real_estate_offer_action" action="real_estate_properties_offer_action"/>
+        </menuitem>
+    </menuitem>
+
+    
+
+    <menuitem id="menu_real_estate_property_type" name="Settings" parent="menu_real_estate_root" />
+    <menuitem id="menu_real_estate_property_type_action" parent="menu_real_estate_property_type" action="estate_property_type_action" /> 
+
+    
+    
+    
+
+</odoo>

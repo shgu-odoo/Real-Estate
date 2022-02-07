@@ -1,0 +1,50 @@
+<odoo>
+
+    <!-- Show menu properties in poratal page -->
+
+    <template id="portal_my_home_estate_property" inherit_id = "portal.portal_my_home">
+        <xpath expr= "//div[hasclass('o_portal_docs')]" position = "inside" >
+            <t t-call = "portal.portal_docs_entry">
+                <t t-set = "title"> Properties </t>
+                <t t-set = "url" t-value = "'/my/properties'"> </t>
+                <t t-set = "placeholder_count" t-value = "total_properties" />
+            </t>
+        </xpath>
+    </template>
+
+    <!-- List View for properties -->
+
+    <template id = "poratl_my_properties" >
+        <t t-call = "portal.portal_layout">
+            <t t-if = "properties" t-call = "portal.portal_table" >
+                <thead>
+                    <tr> 
+                        <th> Sequence No. </th>
+                        <th> Name </th>
+                        <th> Description </th>
+                        <!-- <th class = "text-right" > Expected Price </th> -->
+                        <th> Expected Price </th>
+                        <th> State </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <t t-set="sequence" t-value="0"/>
+
+                    <t t-foreach="properties" t-as="property">
+
+                        <t t-set="sequence" t-value="sequence + 1"/>
+
+                        <tr> 
+                            <td> <t t-out = "sequence" /> </td>
+                            <td> <t t-esc = "property.name" /> </td>
+                            <td> <t t-esc = "property.description" /> </td>
+                            <td> <t t-esc = "property.expected_price" /> </td>
+                            <td> <t t-esc = "property.state" /> </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+</odoo>

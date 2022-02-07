@@ -1,0 +1,78 @@
+<odoo>
+    <template id="index">
+        <!-- <title>My Estate page </title>
+        <h1> Hello World</h1>
+        <ul>
+            <t t-foreach="name" t-as="n">
+                <li> <t t-esc="n" /> </li>
+            </t>
+        </ul> -->
+
+
+        <!-- <title>My Estate page </title>
+        <h1> Hello World</h1>
+        <ul>
+            <t t-foreach="properties" t-as="record">
+                <li> <t t-esc="record.name" /> </li>
+            </t>
+        </ul> -->
+
+        <t t-call="website.layout">
+            <t t-set="title"> my Estate Properties </t>
+            <div class="oe_structure">
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Sequence No. </th>
+                                <th> Name </th>
+                                <th> Description </th>
+                                <th> Expected Price </th>
+                                <th> State </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <t t-set="sequence" t-value="0"/>
+
+                            <t t-foreach="properties" t-as="record">
+
+                                <t t-set="sequence" t-value="sequence + 1"/>
+
+                                <tr t-attf-style="font-weight: bold;#{record.expected_price &gt;= 1000000 and 'background: grey;' or ''}">
+
+                                    <td>
+                                        <t t-out="sequence" />
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="record.name" />
+                                    </td>
+
+                                    <!-- <td> <t t-esc="record.description" /> </td> -->
+
+                                    <td>
+                                        <t t-if="record.description" t-out="record.description" />
+                                        <t t-else="">No Description Available</t>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="record.expected_price" />
+                                    </td>
+
+                                    <td>
+                                        <span t-field="record.state"/>
+                                    </td>
+
+                                </tr>
+                            </t>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+
+    </template>
+</odoo>

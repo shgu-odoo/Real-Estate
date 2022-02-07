@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="estate_my_property_action" model="ir.actions.act_window">
+        <field name="name">Property</field>
+        <field name="res_model">estate.property.myproperty</field>
+        <field name="view_mode">tree,form,calendar,gantt,graph,pivot,kanban</field>
+        <field name="context">{'search_default_state' : 'new' ,'search_default_my_property_search' : 1 , 'is_my_property' : True}</field>
+
+    </record>
+
+    <!--Kanban-->
+    <record id="estate_property_myproperty_accepted_offer_action" model="ir.actions.act_window">
+        <field name="name">estate.property.myproperty.accepted.offer.action</field>
+        <field name="res_model">estate.property.myproperty.offer</field>
+        <field name="domain">[('status','=','accepted')]</field>
+        <field name="context">{'default_property_id':active_id}</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_real_estate_my_property" name="My Property" parent="menu_real_estate_root"/>
+    <menuitem id="menu_real_estate_my_property_action" parent="menu_real_estate_my_property" action="estate_my_property_action" /> 
+
+
+</odoo>
