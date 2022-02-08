@@ -69,6 +69,7 @@ class EstatePropertyOffer(models.Model) :
 class EstateProperty(models.Model) :
 
     _name = 'estate.property'
+    _inherit = 'portal.mixin'
     _description = 'Estate Property'
     _sql_constraints = [('positive_price','CHECK(expected_price >= 0)','Enter Positive value')]
     _order = "expected_price desc"   
@@ -220,3 +221,8 @@ class EstateProperty(models.Model) :
             "views":[[view_id_accept, 'tree']],
             "domain": [('property_id', '=', self.id),('status','=','accepted')]
             }
+
+    def _compute_access_url(self) :
+        super()._compute_access_url()
+        for record in self :
+            record.access_url = '/my/properties/%s' %(record.id)

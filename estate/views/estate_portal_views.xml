@@ -12,9 +12,27 @@
         </xpath>
     </template>
 
+    <!-- Estate Breadcrumbs -->
+
+    <template id="portal_my_home_estate_breadcrumbs" inherit_id = "portal.portal_breadcrumbs">
+        <xpath expr= "//ol[hasclass('o_portal_submenu')]" position = "inside" >
+            <li t-if = "page_name == 'myproperties' or property" t-attf-class = "breadcrumb-item #{'active ' if properties else' '}" >
+                <a t-if = "property" t-attf-href = "/my/properties?{{ keep_query() }}"> Properties </a>
+                <a t-else = ""> Properties </a>
+            </li>
+
+            <li t-if = "property" t-attf-class = "breadcrumb-item active">
+                <t t-esc = "property.name"> </t>
+            </li>
+        </xpath>
+    </template>
+
+
+
+
     <!-- List View for properties -->
 
-    <template id = "poratl_my_properties" >
+    <template id = "poratl_my_properties" name = "My Properties">
         <t t-call = "portal.portal_layout">
             <t t-if = "properties" t-call = "portal.portal_table" >
                 <thead>
@@ -36,7 +54,7 @@
                         <t t-set="sequence" t-value="sequence + 1"/>
 
                         <tr> 
-                            <td> <t t-out = "sequence" /> </td>
+                            <td> <a t-att-href = "property.get_portal_url()" ><t t-out = "sequence" /> </a> </td>
                             <td> <t t-esc = "property.name" /> </td>
                             <td> <t t-esc = "property.description" /> </td>
                             <td> <t t-esc = "property.expected_price" /> </td>
@@ -47,4 +65,27 @@
             </t>
         </t>
     </template>
+
+    <!-- Template for property view -->
+
+    <template id = "property_portal_view" name = "Property View" inherit_id = "portal.portal_sidebar">
+        <xpath expr = "//div[hasclass('o_portal_sidebar')]" position = "inside">
+            <div class = "row mt16 o_portal_sale_sidebar">
+                <t t-call = "portal.portal_record_sidebar" >
+                    <t t-set = "title" >
+                        <h2> <b t-field = "property.expected_price" /> </h2>                    
+                    </t>
+                </t>
+
+                <div id = "quote_content" class = "col-12 col-lg justify-content-end">
+                    <div t-attf-class = "card # 'pb-5' if report_type == 'html' else '' " id = "portal_sale_content">
+                        <h2><t t-esc = "property.name" ></t></h2>
+                    </div>
+                </div>
+                
+            </div>
+        </xpath>
+    </template>
+
+
 </odoo>
